@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>My Portfolio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,11 @@
             <div id="logo">
                 <h2 class="white open-sans-family">Hamid.dev</h2>
             </div>   
+            <div id="menu-icon" role="button" aria-controls="links" aria-expanded="false" tabindex="0">
+                <i class="fas fa-bars white" aria-hidden="true"></i>
+            </div>
             <div id="links">
+                
                 <a href="#Hero"><h4>Home</h4></a>
                 <a href="#Projects"><h4>Projects</h4></a>
                 <a href="#Services"><h4>Services</h4></a>
@@ -22,8 +27,70 @@
                 <a href="#Contact"><h4>Contact</h4></a>
             </div> 
         </section>
+        <script>
+            (function(){
+                const menuIcon = document.getElementById('menu-icon');
+                const links = document.getElementById('links');
+                if (!menuIcon || !links) return;
+
+                function setExpanded(val){
+                    menuIcon.setAttribute('aria-expanded', String(val));
+                }
+
+                menuIcon.addEventListener('click', function(e){
+                    const open = links.classList.toggle('open');
+                    setExpanded(open);
+                });
+
+                menuIcon.addEventListener('keydown', function(e){
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        menuIcon.click();
+                    }
+                });
+
+                // close when clicking outside
+                document.addEventListener('click', function(e){
+                    if (!menuIcon.contains(e.target) && !links.contains(e.target)) {
+                        if (links.classList.contains('open')){
+                            links.classList.remove('open');
+                            setExpanded(false);
+                        }
+                    }
+                });
+
+                // close on escape
+                document.addEventListener('keydown', function(e){
+                    if (e.key === 'Escape' && links.classList.contains('open')){
+                        links.classList.remove('open');
+                        setExpanded(false);
+                        menuIcon.focus();
+                    }
+                });
+
+                // close after clicking a link (handy on mobile)
+                links.querySelectorAll('a').forEach(a => a.addEventListener('click', function(){
+                    if (links.classList.contains('open')){
+                        links.classList.remove('open');
+                        setExpanded(false);
+                    }
+                }));
+            })();
+        </script>
         <section id="Hero" class="hero-section-all">
             <div id="hero">
+                <div id="hero-content-mobile">
+                    <div class="info">
+                        <h1 class="white less-space light-gray">Hi I'm</h1>
+                        <h1 class="less-space">
+                        <span class="name-1">Hamid</span> <span class="name-2">Ahmadzai</span></h1>
+                    </div>
+                    <div class="job">
+                        <h1 class="light-gray less-space">Web Developer</h1>
+                    </div>
+                    <a  href="#Projects" class="contact-btn button-space">View My Work</a>
+                    <a class="hire-button green bold">Hire Me on Fiverr</a>
+                </div>
                 <div id="hero-content">
                     <h1 class="white">Front End Web Developer</h1>
                     <h2 class="hero-accent blue">| Modern and Responsive Websites</h2>
