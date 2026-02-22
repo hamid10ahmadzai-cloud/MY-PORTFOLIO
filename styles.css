@@ -140,7 +140,7 @@ img, video, svg { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 750px) {
     body {
-        width: 750px;
+        width: border;
     }
     /* Navbar layout for smaller screens */
     #navbar { grid-template-columns: 1fr auto; padding: 5px 8px; }
